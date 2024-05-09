@@ -1,0 +1,53 @@
+{% extends "app/base.html" %}
+
+<hr>
+{% block titulo %}Lista de Tarefas{% endblock  %}
+
+{% block conteudo %}
+
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        {% if user.is_authenticated %}
+            <p class='display-5'>BEM VINDO: {{user.username}}</p>
+            <button type="submit" class="btn btn-primary">
+                <a class='text-decoration-none text-white' href='{% url "sair" %}'>Sair</a>
+            </button>
+        {% else %}
+            <a href='{% url "login" %}'>Entrar</a>
+        {% endif %}
+    </div>
+  </nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">Gerenciador de Tarefas</h1>
+    <form method='POST' action='/'>
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <label for="tarefa">Adicionar Tarefa</label>
+            <input type="text" class="form-control" name="titulo" placeholder="Digite sua tarefa">
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+    <hr>
+    <h2>Tarefas</h2>
+    <ul class="list-group">
+        {% if tarefas %}
+            {% for tarefa in tarefas %}
+                <li class="list-group-item">
+                    {% if tarefa.completo %}
+                        <strike>{{ tarefa.titulo }}</strike>
+                    {% else %}
+                        {{ tarefa.titulo }}
+                    {% endif %}
+                    <a class='text-decoration-none m-3' href='{% url 'delete-task' tarefa.id %}'>Excluir Tarefa</a>
+                    <a class='text-decoration-none m-2' href='{% url 'update-task' tarefa.id %}'>Atualizar Tarefa</a>
+                </li>
+            {% endfor %}
+        {% else %}
+                <p>Nao tem tarefa no momento</p>
+        {% endif %}
+    </ul>
+</div>
+
+
+{% endblock  %}

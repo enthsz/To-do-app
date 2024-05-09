@@ -1,0 +1,43 @@
+{% extends "app/base.html" %}
+{% block titulo %}Login{% endblock  %}
+
+{% block conteudo %}
+
+<nav class="navbar bg-dark">
+    <div class="container">
+        <span class="navbar-brand p-4 text-white">Login</span>
+    </div>
+</nav>
+<div class="container">
+    <div class="d-flex justify-content-center mt-5" style="height: 100vh;">
+        <form method='post'>
+            {% csrf_token %}
+            <div class="col">
+                {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    Por favor, corrija os seguintes erros:
+                    <ul>
+                        {% for field_errors in form.errors.values %}
+                            {% for error in field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="row-md-6 mb-3"> <!-- Aqui ajustamos a largura do input -->
+                    <label class="form-label">Login</label>
+                    <input type="text" class="form-control" name='nome'>
+                </div>
+                <div class="row-md-6 mb-3"> <!-- Aqui ajustamos a largura do input -->
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-control" name='senha'>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">Enviar</button>
+                <a href='{% url "signup" %}' class='p-2' >Nao tem uma conta?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock  %}

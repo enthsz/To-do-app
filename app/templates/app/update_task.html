@@ -1,0 +1,36 @@
+{% extends "app/base.html" %}
+
+{% block titulo %}Deletar Tarefa{% endblock  %}
+
+
+
+{% block conteudo %}
+<body class="bg-light">
+    <nav class="navbar bg-dark ">
+        <div class="container ">
+            <h1 class="navbar-brand display-5 text-white">Atualizar Tarefa</h1>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="d-flex justify-content-center mt-5" style="height: 100vh;">
+            <form method='post'>
+                {% csrf_token %}
+                <div class="col">
+                    <div class="row-md-6 mb-3"> <!-- Aqui ajustamos a largura do input -->
+                        <label class="form-label">Titulo</label>
+                        <input type="text" class="form-control" name='titulo' value='{{form.instance.titulo}}'>
+                        <label class='mt-4' for="completo">Completo</label>
+                        <input class='mt-5' type="checkbox" name='completo' {% if form.instance.completo %}checked{% endif %}><br>
+
+                        <button type="submit" class="btn btn-outline-primary">Enviar</button>
+                        <button type="submit" class="btn bg-secondary m-3">
+                            <a class='text-decoration-none text-white' href='{% url "index" %}'>Voltar</a>
+                        </button>
+                    </div>
+ 
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock  %}

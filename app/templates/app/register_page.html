@@ -1,0 +1,69 @@
+{% extends "app/base.html" %}
+
+{% block titulo %}Registrar{% endblock  %}
+
+{% block conteudo %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Usuário</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar bg-dark">
+        <div class="container">
+            <span class="navbar-brand p-4 text-white">Registrar</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="d-flex justify-content-center mt-5" style="height: 100vh;">
+            <form method="post">
+                {% csrf_token %}
+                <div class="col">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Por favor, corrija os seguintes erros:
+                        <ul>
+                            {% for field_errors in form.errors.values %}
+                                {% for error in field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                    <div class="row-md-6 mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
+                    <div class="row-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email">
+                    </div>
+                    <div class="row-md-6 mb-3">
+                        <label class="form-label">Senha</label>
+                        <input type="password" class="form-control" name="password1">
+                    </div>
+                    <div class="row-md-6 mb-3">
+                        <label class="form-label">Confirmar Senha</label>
+                        <input type="password" class="form-control" name="password2">
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">Criar</button>
+                    <a class="btn btn-secondary ml-2" href="{% url 'login' %}">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+{% endblock  %}
