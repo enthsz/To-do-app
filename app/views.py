@@ -81,7 +81,8 @@ def update_task(request, pk):  # Define uma função de view para atualizar uma 
     if request.method == 'POST':  # Verifica se o método da requisição é POST (ou seja, se o formulário foi submetido)
         # Se a requisição for do tipo POST, cria um formulário com os dados da requisição e a instância da tarefa
         form = TarefaForm(request.POST, instance=tarefa)
-        if form.is_valid():  # Verifica se os dados submetidos são válidos de acordo com as regras do formulário
+        if form.is_valid():
+            form.instance.titulo = form.cleaned_data['titulo'].upper()  # Verifica se os dados submetidos são válidos de acordo com as regras do formulário
             form.save()  # Salva os dados da tarefa atualizados no banco de dados
             return redirect('/')  # Redireciona o usuário para a página inicial após a atualização da tarefa
     else:
